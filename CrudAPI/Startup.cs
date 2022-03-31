@@ -33,6 +33,8 @@ namespace CrudAPI
             string mySqlConnection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContextPool<Contexto>(options => options.UseMySql(mySqlConnection, ServerVersion.AutoDetect(mySqlConnection)));
             
+            services.AddCors();
+
             // Configuration for SqlServer
             // services.AddDbContext<Contexto>(options => options.UseSqlServer(Configuration.GetConnectionString("DBconnection")));
             
@@ -56,6 +58,8 @@ namespace CrudAPI
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             app.UseAuthorization();
 
